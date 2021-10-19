@@ -4,9 +4,9 @@
     "slug": "luko-vo",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/luko-icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/luko.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

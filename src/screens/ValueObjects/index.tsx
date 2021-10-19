@@ -4,7 +4,7 @@ import { View, FlatList, Text, StyleSheet } from "react-native";
 import ValueCard, { ValueObject } from "../../components/ValueObjects/ValueCard";
 import SearchBar from "../../components/ValueObjects/SearchBar";
 import AddButton from "../../components/ValueObjects/AddButton";
-import { literals } from "../../constants";
+import { colors, literals } from "../../constants";
 
 const ValueObjects = ( {navigation} : any ) => {
 
@@ -53,6 +53,9 @@ const ValueObjects = ( {navigation} : any ) => {
       </View>
     )
   }
+  const InventoryEmpty = () => (
+    <Text style={styles.emptyInventoryText}>Nothing added to the inventory yet! Press the '+' icon to get started!</Text>
+  )
 
   return (
      
@@ -63,26 +66,38 @@ const ValueObjects = ( {navigation} : any ) => {
         maxToRenderPerBatch={3}
         initialNumToRender={5}
         extraData={filteredValueObjects}
+        ListEmptyComponent={InventoryEmpty}
         contentContainerStyle={styles.listContainer}
+        numColumns={2}
       />
   );
 };
 
 const styles = StyleSheet.create({
   listContainer: {
-    margin: 12
+    padding: 12,
+    backgroundColor: colors.DEFAULT_WHITE,
   },
   headerContainer: {
-    alignItems: 'center'
+    alignItems: 'center',
+    marginVertical: 24,
   },
   headerRowContainer: {
     flex: 1,
+    width: '100%',
+    flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginVertical: 12,
   },
   headerText: {
-    fontSize: 24,
+    fontSize: 36,
     fontWeight: 'bold'
+  },
+  emptyInventoryText: {
+    opacity: 0.8,
+    alignSelf: 'center',
+    marginTop: 48
   }
 })
 

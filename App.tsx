@@ -12,7 +12,10 @@ const App = () =>  {
   return (
     <NavigationContainer>
       <StatusBar style="auto" />
-      <Stack.Navigator initialRouteName="ValueObjects">
+      <Stack.Navigator initialRouteName="ValueObjects"
+      screenOptions={{
+        headerShown: false
+      }}>
         <Stack.Screen name="ValueObjects" component={ValueObjectsScreen}/>
         <Stack.Screen name="AddObject" component={AddObjectScreen}/>
       </Stack.Navigator>

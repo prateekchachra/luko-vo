@@ -24,6 +24,8 @@ const SearchBar = (props: SearchBarProps) =>  {
 
 const styles = StyleSheet.create({
     searchContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
         backgroundColor: colors.PRIMARY_GRAY,
         borderRadius: 4,
         padding: 2,

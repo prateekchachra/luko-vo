@@ -31,4 +31,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default AddButton;
+export default React.memo(AddButton);
