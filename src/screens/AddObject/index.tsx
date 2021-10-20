@@ -168,7 +168,7 @@ const AddObject = ({navigation} : any) => {
         }
         itemStyle={styles.pickerItem}
       >
-        {UserContracts.map((item) => <Picker.Item key={item.type} label={item.type} value={item.type} />)}
+        {UserContracts.map((item) => <Picker.Item key={item.type} label={item.name} value={item.type} />)}
       </Picker>
       <InputField 
       label="Purchase Value"
