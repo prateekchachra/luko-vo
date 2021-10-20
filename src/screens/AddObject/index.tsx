@@ -15,6 +15,7 @@ import { ADD_OBJECT } from "../../context/ValueObjects/constants";
 import InputField from "../../components/AddObject/InputField";
 import AddPhotoButton from "../../components/AddObject/AddPhotoButton";
 import { Platform } from "react-native";
+import ImagePreview from "../../components/AddObject/ImagePreview";
 
 
 const ValueObjectSchema = Yup.object().shape({
@@ -62,6 +63,9 @@ const AddObject = ({navigation} : any) => {
   }, [])
 
   const goBack = () => navigation.goBack();
+  
+  const removePhotoUrl = () => setFieldValue('photoUrl', '');
+  const removeInvoiceUrl = () => setFieldValue('invoiceUrl', '');
 
   const onAddPhotoPress = async () => {
       let result = await ImagePicker.launchImageLibraryAsync({
@@ -86,7 +90,7 @@ const AddObject = ({navigation} : any) => {
   
       if (!result.cancelled) {
         // firebase link
-        setFieldValue('photoUrl', result.uri);
+        setFieldValue('invoiceUrl', result.uri);
       }
   };
   
@@ -112,10 +116,15 @@ const AddObject = ({navigation} : any) => {
   return (
     <ScrollView contentContainerStyle={styles.viewContainer}>
       <AddObjectHeader />
-      <AddPhotoButton 
+      {values.photoUrl ? <ImagePreview
+        imageUri={values.photoUrl} 
+        onCancelPress={removePhotoUrl}
+      />:
+        <AddPhotoButton 
       label="Add Photo" 
       onButtonPress={onAddPhotoPress}
-      error={errors['photoUrl']}/>
+      error={errors['photoUrl']}/>}
+
       <InputField 
       label="Name"
       onChangeText={handleChange('name')}
@@ -149,10 +158,15 @@ const AddObject = ({navigation} : any) => {
       error={errors['description']}
       touched={touched['description']}
       />
-     <AddPhotoButton 
-     label="Add Invoice" 
-     onButtonPress={onAddInvoicePress}
-     error={errors['invoiceUrl']}/>
+     {values.invoiceUrl ? 
+     <ImagePreview
+      imageUri={values.invoiceUrl} 
+      onCancelPress={removeInvoiceUrl}
+      />
+     : <AddPhotoButton 
+      label="Add Invoice" 
+      onButtonPress={onAddInvoicePress}
+      error={errors['invoiceUrl']}/>}
     </ScrollView>
   );
 };
@@ -187,7 +201,7 @@ const styles = StyleSheet.create({
     opacity: 0.5,
     marginVertical: 12,  
   },
-  pickerItemStyle: {
+  pickerItem: {
     fontSize: 18,
     fontWeight: '700',
     borderBottomWidth: StyleSheet.hairlineWidth

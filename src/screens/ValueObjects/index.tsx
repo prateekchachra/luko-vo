@@ -17,6 +17,7 @@ const ValueObjects = ( {navigation} : any ) => {
   // Initial list from React Context
   const [filteredValueObjects, setFilteredValueObjects] = useState<ValueObject[]>(valueObjectsState.valueObjects);
 
+  useEffect(() => setFilteredValueObjects(valueObjectsState.valueObjects), [valueObjectsState.valueObjects])
   useEffect(() => {
     
     const filteredObjects = valueObjectsState.valueObjects.filter((item: ValueObject, index) => {
