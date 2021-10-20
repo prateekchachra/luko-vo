@@ -6,6 +6,14 @@ const { width, height } = Dimensions.get('window');
 
 
 
+export type CategoryType = {[k: string] : string}
+
+export const Categories: CategoryType = {
+    "ART": "Art", 
+    "ELECTRONICS": "Electronics", 
+    "JEWELRY": "Jewelry", 
+    "MUSICAL_INSTRUMENTS": "Musical Instruments",
+}
 export interface ValueObject {
     name: string;
     category: string;
@@ -15,12 +23,6 @@ export interface ValueObject {
     invoiceUrl: string;
 }
 
-export const Categories = {
-    "ART": "Art", 
-    "ELECTRONICS":"electronics", 
-    "JEWELRY": "Jewelry", 
-    "MUSICAL_INSTRUMENTS" :"Musical Instruments",
-}
 
 export interface ValueCardProps {
     valueObject: ValueObject;

@@ -11,5 +11,6 @@ export const colors = {
     SECONDARY_BLUE: "#223e4b",
 
     BUTTON_BLUE: "#0d51e7",
+    BUTTON_BLUE_DISABLED: "#c0c5d0",
 
 }

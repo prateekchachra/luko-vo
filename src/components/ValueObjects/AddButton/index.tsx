@@ -19,14 +19,14 @@ const AddButton = (props: AddButtonTypes) => (
 const styles = StyleSheet.create({
     buttonContainer: {
         backgroundColor: colors.BUTTON_BLUE,
-        height: 24,
-        width: 24,
-        borderRadius: 12,
+        height: 36,
+        width: 36,
+        borderRadius: 18,
         justifyContent: 'center',
         alignItems: 'center'
     },
     buttonText: {
-        fontSize: 16,
+        fontSize: 24,
         color: colors.DEFAULT_WHITE
     }
 });

@@ -10,6 +10,9 @@ export interface SubmitButtonProps {
 }
 
 const SubmitButton = (props: SubmitButtonProps) => {
+
+  const disableHandlerColor = props.disabled ? colors.BUTTON_BLUE_DISABLED : colors.BUTTON_BLUE;
+
   return (
     <TouchableOpacity
     disabled={props.disabled}
@@ -19,14 +22,14 @@ const SubmitButton = (props: SubmitButtonProps) => {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor:  props.outline ? 
-        colors.DEFAULT_WHITE : colors.BUTTON_BLUE
+        colors.DEFAULT_WHITE : disableHandlerColor
       }}
       activeOpacity={0.7}
       onPress={props.onSubmit}
     >
       <Text
-        style={[styles.labelText, {color: props.outline ? colors.BUTTON_BLUE :
-          colors.DEFAULT_WHITE,}]}>
+        style={[styles.labelText, {color: props.outline ? disableHandlerColor :
+          colors.DEFAULT_WHITE}]}>
         {props.label}
       </Text>
     </TouchableOpacity>
