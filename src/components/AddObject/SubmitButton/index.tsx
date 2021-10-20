@@ -1,12 +1,14 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { string } from 'yup/lib/locale';
 import { colors } from '../../../constants';
 
 export interface SubmitButtonProps {
     label: string;
     onSubmit: () => void;
-    disabled?: boolean;
     outline: boolean;
+    disabled?: boolean;
+    "data-testid"?: string;
 }
 
 const SubmitButton = (props: SubmitButtonProps) => {

@@ -106,7 +106,7 @@ const AddObject = ({navigation} : any) => {
       <View style={styles.headerContainer}>
         <CancelButton />
         <Text style={styles.labelText}>{literals.ADD_HEADER_TEXT}</Text>
-        <SubmitButton label="Save" disabled={values.name === '' || values.purchasePrice === 0
+        <SubmitButton data-testid="save-button" label="Save" disabled={values.name === '' || values.purchasePrice === 0
       || values.photoUrl === '' || values.invoiceUrl ===''} outline onSubmit={handleSubmit}/>
       </View>
     )
