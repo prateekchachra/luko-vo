@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "luko-vo",
+    "name": "Luko VO",
     "slug": "luko-vo",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -28,6 +28,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "An Expo application to Add and View Value-Objects of a Customer",
+    "githubUrl": "https://github.com/prateekchachra/luko-vo/"
   }
 }

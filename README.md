@@ -1,8 +1,8 @@
 # Luko - VO
 
-## An Expo application to Add and View Value-Objects of a Customer
+## An Expo Application (Can run on Web/Android/iOS) to Add and View Value-Objects of a Customer
 
-### This Application uses TypeScript as the main language and Yarn as the package manager
+This Application uses TypeScript as the main language and Yarn as the package manager
 
 ## How to Run this Application
 
