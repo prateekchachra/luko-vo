@@ -13,3 +13,9 @@ This Application uses TypeScript as the main language and Yarn as the package ma
    or you can simply run it on **web** on your laptop/desktop by selecting the 'w' option.
 
 ## IMPORTANT: This application uses react-native-reanimated ~2.2, so with expo it won't run in Debug mode with Developer Tools turned on. Please make sure you disable the Developer Tools.
+
+To install this application on your phone, you can use this QR Code.
+
+![QR Code](https://user-images.githubusercontent.com/14109504/138127857-21ddac72-a7c7-4a36-bc32-b779a363bcc5.png)
+
+Application currently published on [expo](https://expo.dev/@prattchach/luko-vo).
