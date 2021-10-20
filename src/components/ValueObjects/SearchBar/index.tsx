@@ -1,19 +1,22 @@
 import React from 'react'
-import { View, StyleSheet, Text, TextInput } from 'react-native'
+import { View, StyleSheet, TextInput } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 import { colors, literals } from '../../../constants';
 
 export interface SearchBarProps {
+    searchText: string,
     onSearchTextChange: (value: string) => void;
 }
 
 
 const SearchBar = (props: SearchBarProps) =>  {
+
     return (
         <View style={styles.searchContainer}>
             <Ionicons name="search" size={16} color={colors.DEFAULT_GRAY}
             style={styles.searchIcon}/>
-            <TextInput 
+            <TextInput
+            value={props.searchText} 
             style={styles.searchInput}
             placeholder={literals.INPUT_PLACEHOLDER}
             onChangeText={props.onSearchTextChange}
@@ -40,4 +43,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default SearchBar
+export default React.memo(SearchBar);

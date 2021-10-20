@@ -1,22 +1,25 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useContext, useEffect, useCallback } from "react";
 import { View, FlatList, Text, StyleSheet } from "react-native";
 
 import ValueCard, { ValueObject } from "../../components/ValueObjects/ValueCard";
 import SearchBar from "../../components/ValueObjects/SearchBar";
 import AddButton from "../../components/ValueObjects/AddButton";
 import { colors, literals } from "../../constants";
+import { ValueObjectsContext } from "../../context/ValueObjects";
 
 const ValueObjects = ( {navigation} : any ) => {
+
+  const {state: valueObjectsState} = useContext(ValueObjectsContext);
 
   // Search text
   const [searchText, setSearchText] = useState<string>("");
 
   // Initial list from React Context
-  const [filteredValueObjects, setFilteredValueObjects] = useState<ValueObject[]>([]);
+  const [filteredValueObjects, setFilteredValueObjects] = useState<ValueObject[]>(valueObjectsState.valueObjects);
 
   useEffect(() => {
     
-    const filteredObjects = [].filter((item: ValueObject, index) => {
+    const filteredObjects = valueObjectsState.valueObjects.filter((item: ValueObject, index) => {
       
       /**
        * We would like to be case insensitive with the results
@@ -35,13 +38,14 @@ const ValueObjects = ( {navigation} : any ) => {
   }, [searchText])
 
   const renderValueObjects = ({item, index} : any) => (
-    <ValueCard key={`${item.name}${index}`} valueObject={item} />
+    <ValueCard valueObject={item} />
   );
 
   const onSearchTextChange = useCallback((value: string) => setSearchText(value), []);
   const onAddPress = useCallback(() => navigation.navigate('AddObject'), []);
 
-
+  const getItemKey = (item: ValueObject, index: any) => `${item.name}${index}`;
+  
   const InventoryHeader = () => {
     return (
       <View style={styles.headerContainer}>
@@ -49,7 +53,7 @@ const ValueObjects = ( {navigation} : any ) => {
           <Text style={styles.headerText}>{literals.HEADER_TEXT}</Text>
           <AddButton onAddPress={onAddPress} />
         </View>
-         <SearchBar onSearchTextChange={onSearchTextChange}/>
+         <SearchBar searchText={searchText} onSearchTextChange={onSearchTextChange}/>
       </View>
     )
   }
@@ -63,12 +67,14 @@ const ValueObjects = ( {navigation} : any ) => {
         ListHeaderComponent={InventoryHeader}
         data={filteredValueObjects}
         renderItem={renderValueObjects}
-        maxToRenderPerBatch={3}
-        initialNumToRender={5}
+        maxToRenderPerBatch={10}
+        initialNumToRender={6}
         extraData={filteredValueObjects}
         ListEmptyComponent={InventoryEmpty}
         contentContainerStyle={styles.listContainer}
+        columnWrapperStyle={{flex: 0.5, justifyContent: 'space-between'}}
         numColumns={2}
+        keyExtractor={getItemKey}
       />
   );
 };

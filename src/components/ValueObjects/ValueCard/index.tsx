@@ -4,6 +4,8 @@ import { colors } from '../../../constants';
 
 const { width, height } = Dimensions.get('window');
 
+
+
 export interface ValueObject {
     name: string;
     category: string;
@@ -11,6 +13,13 @@ export interface ValueObject {
     description?: string;
     photoUrl: string;
     invoiceUrl: string;
+}
+
+export const Categories = {
+    "ART": "Art", 
+    "ELECTRONICS":"electronics", 
+    "JEWELRY": "Jewelry", 
+    "MUSICAL_INSTRUMENTS" :"Musical Instruments",
 }
 
 export interface ValueCardProps {
@@ -23,9 +32,8 @@ const ValueCard = (props: ValueCardProps) =>  {
         <View style={styles.cardContainer}>
             <Image source={{uri: photoUrl}} style={styles.valueImage} />
             <View style={styles.detailsContainer}>
-                <Text style={styles.labelText}>{name} | {category}</Text>
-                <Text style={styles.invoiceText}>{Number(purchasePrice / 10000)} {purchasePrice % 10000} €</Text>
-                {description && <Text style={styles.descriptionText}>{description}</Text>}
+                <Text style={styles.labelText}>{name}</Text>
+                <Text style={styles.invoiceText}>{Number(purchasePrice / 10000).toFixed(0)} {purchasePrice % 10000} €</Text>
             </View>
         </View>
     )
@@ -45,40 +53,29 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.29,
         shadowRadius: 4.65,
         elevation: 7,
-        borderRadius: 12,
-        marginHorizontal: 16,
-        height: height/3,
-        position: 'relative' 
+        borderRadius: 16,
+        maxWidth: width / 2 - 24,
+        marginVertical: 12,
     },
     detailsContainer: {
-        position: 'absolute',
-        bottom: 12,
-        left: 8,
-        right: 8,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'flex-start',
+        padding: 12,
     },
     labelText: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: colors.DEFAULT_WHITE,
         opacity: 0.8
     },
     invoiceText: {
         fontSize: 12,
         fontWeight: '600',
-        color: colors.DEFAULT_WHITE,
         opacity: 0.6
     },
-    descriptionText: {
-        fontSize: 10,
-        fontWeight: '300',
-        color: colors.DEFAULT_WHITE,
-        opacity: 0.5
-    },
     valueImage: {
-        borderRadius: 12,
-        width: '100%',
-        height: '100%'
+        borderTopLeftRadius: 16,
+        borderTopRightRadius: 16,
+        width: width / 2 - 24,
+        height: width / 2 - 24,
     }
 });
