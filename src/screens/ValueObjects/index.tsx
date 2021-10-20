@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useCallback } from "react";
+import React, { useState, useContext, useEffect, useCallback, useMemo } from "react";
 import { View, FlatList, Text, StyleSheet } from "react-native";
 
 import ValueCard, { ValueObject } from "../../components/ValueObjects/ValueCard";
@@ -44,6 +44,7 @@ const ValueObjects = ( {navigation} : any ) => {
 
   const onSearchTextChange = useCallback((value: string) => setSearchText(value), []);
   const onAddPress = useCallback(() => navigation.navigate('AddObject'), []);
+  
 
   const getItemKey = (item: ValueObject, index: any) => `${item.name}${index}`;
   
@@ -52,7 +53,7 @@ const ValueObjects = ( {navigation} : any ) => {
       <View style={styles.headerContainer}>
         <View style={styles.headerRowContainer}>
           <Text style={styles.headerText}>{literals.HEADER_TEXT}</Text>
-          <AddButton onAddPress={onAddPress} />
+          <AddButton data-testid="add-button" onAddPress={onAddPress} />
         </View>
          <SearchBar searchText={searchText} onSearchTextChange={onSearchTextChange}/>
       </View>

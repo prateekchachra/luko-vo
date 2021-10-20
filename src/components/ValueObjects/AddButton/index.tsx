@@ -4,6 +4,7 @@ import { colors } from '../../../constants';
 
 export interface AddButtonTypes {
     onAddPress: () => void;
+    "data-testid"?: string;
 }
 
 

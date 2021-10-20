@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
-import { colors } from '../../../constants';
+import { colors, UserContracts } from '../../../constants';
 
 const { width, height } = Dimensions.get('window');
 
@@ -21,6 +21,7 @@ export interface ValueObject {
     description?: string;
     photoUrl: string;
     invoiceUrl: string;
+    contractMapping: string;
 }
 
 
@@ -29,7 +30,7 @@ export interface ValueCardProps {
 }
 
 const ValueCard = (props: ValueCardProps) =>  {
-    const { name, category, purchasePrice, description, photoUrl } = props.valueObject;
+    const { name, purchasePrice, photoUrl } = props.valueObject;
     return (
         <View style={styles.cardContainer}>
             <Image source={{uri: photoUrl}} style={styles.valueImage} />

@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from "react";
-import { View, ScrollView, Text, TouchableOpacity, TextInput, StyleSheet } from "react-native";
+import { View, ScrollView, Text, TouchableOpacity,  StyleSheet } from "react-native";
 import {Picker} from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
 
@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 import {Ionicons} from '@expo/vector-icons';
 
 import SubmitButton from "../../components/AddObject/SubmitButton";
-import { colors, literals } from "../../constants";
+import { colors, literals, UserContracts } from "../../constants";
 import { Categories, ValueObject } from "../../components/ValueObjects/ValueCard";
 import { ValueObjectsContext } from "../../context/ValueObjects";
 import { ADD_OBJECT } from "../../context/ValueObjects/constants";
@@ -25,11 +25,12 @@ const ValueObjectSchema = Yup.object().shape({
   description: Yup.string().notRequired(),
   photoUrl: Yup.string().required('Please add a Photo'),
   invoiceUrl: Yup.string().required('Please add an Invoice'),
+  contractMapping: Yup.string().required('Please select a contract to map to')
 });
 
 const AddObject = ({navigation} : any) => {
 
-  const { dispatch } = useContext(ValueObjectsContext);
+  const { state: valueObjectsState, dispatch } = useContext(ValueObjectsContext);
 
   const { handleChange, handleSubmit, handleBlur, values, setFieldValue, errors, touched } = useFormik<ValueObject>({
     
@@ -41,13 +42,27 @@ const AddObject = ({navigation} : any) => {
       description: '',
       invoiceUrl: '',
       photoUrl: '',
+      contractMapping: ''
     },
     onSubmit: values => {
-      dispatch({
-        type: ADD_OBJECT,
-        valueObject: values,
-    });
-    navigation.goBack();
+
+
+      // Getting the total value of the Value Objects
+
+      const totalValue = valueObjectsState.valueObjects.filter((item) => item.contractMapping 
+      === values.contractMapping).reduce((a,b) => a + b.purchasePrice, 0);
+
+      // Making sure the limit stays till 40000
+
+      if(totalValue + values.purchasePrice <= 40000){
+        dispatch({
+          type: ADD_OBJECT,
+          valueObject: values,
+      });
+      navigation.goBack();
+      }
+      else alert(`Cannot save more value objects to ${values.contractMapping}. Price exceeding 40,000 Euros`)
+     
   }
   });
 
@@ -142,6 +157,18 @@ const AddObject = ({navigation} : any) => {
         itemStyle={styles.pickerItem}
       >
         {Object.keys(Categories).map((item) => <Picker.Item key={item} label={Categories[item]} value={item} />)}
+      </Picker>
+
+      <Text style={styles.inputLabelText}>Contract</Text>
+      <Picker
+      style={styles.pickerContainer}
+        selectedValue={values.category}
+        onValueChange={(itemValue, itemIndex) =>
+          setFieldValue('contractMapping', itemValue)
+        }
+        itemStyle={styles.pickerItem}
+      >
+        {UserContracts.map((item) => <Picker.Item key={item.type} label={item.type} value={item.type} />)}
       </Picker>
       <InputField 
       label="Purchase Value"
