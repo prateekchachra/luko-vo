@@ -6,14 +6,29 @@ const { width, height } = Dimensions.get('window');
 
 
 
-export type CategoryType = {[k: string] : string}
-
-export const Categories: CategoryType = {
-    "ART": "Art", 
-    "ELECTRONICS": "Electronics", 
-    "JEWELRY": "Jewelry", 
-    "MUSICAL_INSTRUMENTS": "Musical Instruments",
+export type CategoryType = {
+    type: string;
+    name: string;
 }
+
+export const Categories: CategoryType[] = [
+    {
+        type: "ART",
+        name: "Art"
+    }, 
+    {
+        type: "ELECTRONICS",
+        name: "Electronics"
+    }, 
+    {
+        type: "JEWELRY",
+        name: "Jewelry"
+    }, 
+    {
+        type: "MUSICAL_INSTRUMENTS",
+        name: "Musical Instruments"
+    },
+]
 export interface ValueObject {
     name: string;
     category: string;
@@ -31,12 +46,15 @@ export interface ValueCardProps {
 
 const ValueCard = (props: ValueCardProps) =>  {
     const { name, purchasePrice, photoUrl } = props.valueObject;
+
+    const leftNum = purchasePrice / 10000 < 0 ? '' : String((purchasePrice / 10000).toFixed(2));
+
     return (
         <View style={styles.cardContainer}>
             <Image source={{uri: photoUrl}} style={styles.valueImage} />
             <View style={styles.detailsContainer}>
                 <Text style={styles.labelText}>{name}</Text>
-                <Text style={styles.invoiceText}>{Number(purchasePrice / 10000).toFixed(0)} {purchasePrice % 10000} €</Text>
+                <Text style={styles.invoiceText}>{leftNum} {purchasePrice % 10000} €</Text>
             </View>
         </View>
     )

@@ -41,7 +41,7 @@ export const ValueObjectsProvider: React.FC = ( { children } ) => {
     }, [])
     useEffect(() => {
         AsyncStorage.setItem('valueObjects', JSON.stringify(state.valueObjects));
-    }, [state]);
+    }, [state.valueObjects]);
     return (
         <ValueObjectsContext.Provider value={{state, dispatch}}>
             {children}

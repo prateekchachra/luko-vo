@@ -37,12 +37,12 @@ const AddObject = ({navigation} : any) => {
     validationSchema: ValueObjectSchema,
     initialValues: {
       name: '',
-      category: '',
+      category: Categories[0].name,
       purchasePrice: 0,
       description: '',
       invoiceUrl: '',
       photoUrl: '',
-      contractMapping: ''
+      contractMapping: UserContracts[0].name
     },
     onSubmit: values => {
 
@@ -81,6 +81,8 @@ const AddObject = ({navigation} : any) => {
   
   const removePhotoUrl = () => setFieldValue('photoUrl', '');
   const removeInvoiceUrl = () => setFieldValue('invoiceUrl', '');
+
+  const onPriceUpdate = (value: string) => setFieldValue('purchasePrice', value === '' ? 0 : parseFloat(value));
 
   const onAddPhotoPress = async () => {
       let result = await ImagePicker.launchImageLibraryAsync({
@@ -156,7 +158,7 @@ const AddObject = ({navigation} : any) => {
         }
         itemStyle={styles.pickerItem}
       >
-        {Object.keys(Categories).map((item) => <Picker.Item key={item} label={Categories[item]} value={item} />)}
+        {Categories.map((item) => <Picker.Item key={item.type} label={item.name} value={item.type} />)}
       </Picker>
 
       <Text style={styles.inputLabelText}>Contract</Text>
@@ -173,7 +175,8 @@ const AddObject = ({navigation} : any) => {
       <InputField 
       label="Purchase Value"
       keyboardType="numeric"
-      onChangeText={handleChange('purchasePrice')}
+      onChangeText={onPriceUpdate}
+      value={String(values.purchasePrice)}
       onBlur={handleBlur('purchasePrice')}
       error={errors['purchasePrice']}
       touched={touched['purchasePrice']}
