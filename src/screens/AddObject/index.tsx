@@ -164,7 +164,7 @@ const AddObject = ({navigation} : any) => {
       <Text style={styles.inputLabelText}>Contract</Text>
       <Picker
       style={styles.pickerContainer}
-        selectedValue={values.category}
+        selectedValue={values.contractMapping}
         onValueChange={(itemValue, itemIndex) =>
           setFieldValue('contractMapping', itemValue)
         }
